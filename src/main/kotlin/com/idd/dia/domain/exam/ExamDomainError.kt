@@ -1,0 +1,6 @@
+package com.idd.dia.domain.exam
+
+enum class ExamDomainError(val message: String) {
+    QUESTION_ID_NOT_FOUND("없는 문항 번호입니다."),
+    ANSWER_ID_NOT_FOUND("없는 답안 번호입니다.")
+}

@@ -1,5 +1,6 @@
 package com.idd.dia.domain.exam.service
 
+import com.idd.dia.domain.exam.ExamDomainError.QUESTION_ID_NOT_FOUND
 import com.idd.dia.domain.exam.repository.QuestionRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -11,5 +12,5 @@ class QuestionRepositoryService(
     private val questionRepository: QuestionRepository,
 ) {
     fun findById(id: Long) = questionRepository.findByIdOrNull(id)
-        ?: throw NoSuchElementException("없는 문항 번호입니다.")
+        ?: throw NoSuchElementException(QUESTION_ID_NOT_FOUND.message)
 }
