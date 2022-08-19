@@ -1,7 +1,7 @@
-package com.idd.dia.domain.exam.service
+package com.idd.dia.domain.interview.service
 
-import com.idd.dia.domain.exam.ExamDomainError.QUESTION_ID_NOT_FOUND
-import com.idd.dia.domain.exam.repository.QuestionRepository
+import com.idd.dia.domain.interview.InterviewDomainError.QUESTION_ID_NOT_FOUND
+import com.idd.dia.domain.interview.repository.QuestionRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -1,6 +1,6 @@
-package com.idd.dia.domain.exam.service
+package com.idd.dia.domain.interview.service
 
-import com.idd.dia.domain.exam.dto.QuestionResponseData
+import com.idd.dia.domain.interview.dto.QuestionResponseData
 import com.idd.dia.domain.index.service.IndexRepositoryService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

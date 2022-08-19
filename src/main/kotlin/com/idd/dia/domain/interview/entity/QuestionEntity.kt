@@ -1,4 +1,4 @@
-package com.idd.dia.domain.exam.entity
+package com.idd.dia.domain.interview.entity
 
 import com.idd.dia.domain.BaseEntity
 import org.hibernate.annotations.DynamicInsert
@@ -11,11 +11,13 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "tb_answer")
+@Table(name = "tb_question")
 @DynamicInsert
 @DynamicUpdate
-class AnswerEntity(
-    modelAnswer: String
+class QuestionEntity(
+    question: String,
+    IndexId: Long,
+    modelAnswerId: Long
 ): BaseEntity() {
 
     @Id
@@ -24,7 +26,15 @@ class AnswerEntity(
     var id: Long = 0
         protected set
 
-    @Column(name = "model_answer", nullable = false)
-    var modelAnswer: String = modelAnswer
+    @Column(name = "question", nullable = false)
+    var question: String = question
+        protected set
+
+    @Column(name = "indexId", nullable = false)
+    var indexId: Long = IndexId
+        protected set
+
+    @Column(name = "answer_id", nullable = false)
+    var answerId: Long = modelAnswerId
         protected set
 }

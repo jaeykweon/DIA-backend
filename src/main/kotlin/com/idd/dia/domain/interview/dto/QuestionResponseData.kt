@@ -1,4 +1,4 @@
-package com.idd.dia.domain.exam.dto
+package com.idd.dia.domain.interview.dto
 
 data class QuestionResponseData(
     val id: Long,

@@ -1,6 +1,6 @@
-package com.idd.dia.domain.exam.repository
+package com.idd.dia.domain.interview.repository
 
-import com.idd.dia.domain.exam.entity.QuestionEntity
+import com.idd.dia.domain.interview.entity.QuestionEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface QuestionRepository: JpaRepository<QuestionEntity, Long> {
