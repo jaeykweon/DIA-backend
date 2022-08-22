@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21" // https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.allopen
 }
 
-group = "com.idd"
+group = "com.pfd"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
