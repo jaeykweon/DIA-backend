@@ -23,7 +23,6 @@ class AnswerEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long = 0
-        protected set
 
     @Column(name = "questio_id", nullable = false)
     var questionId: Long = questionId

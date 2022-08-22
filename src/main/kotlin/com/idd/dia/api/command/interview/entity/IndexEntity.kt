@@ -23,7 +23,6 @@ class IndexEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long = 0
-        protected set
 
     @Column(name = "first_category", nullable = false)
     var firstCategory: String = firstCategory

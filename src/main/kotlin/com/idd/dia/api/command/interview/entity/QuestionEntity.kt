@@ -23,7 +23,6 @@ class QuestionEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long = 0
-        protected set
 
     @Column(name = "indexId", nullable = false)
     var indexId: Long = indexId
