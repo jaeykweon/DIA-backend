@@ -30,6 +30,10 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql:42.3.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // JWT
+    implementation("com.auth0:java-jwt:3.19.1")
+    implementation("org.mindrot:jbcrypt:0.4")
 }
 
 tasks.withType<KotlinCompile> {
