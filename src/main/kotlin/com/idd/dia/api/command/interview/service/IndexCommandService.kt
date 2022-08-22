@@ -2,14 +2,14 @@ package com.idd.dia.api.command.interview.service
 
 import com.idd.dia.api.command.interview.dto.IndexRequestData
 import com.idd.dia.api.command.interview.entity.IndexEntity
-import com.idd.dia.api.command.interview.repository.IndexRepository
+import com.idd.dia.api.command.interview.repository.IndexEntityRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = false)
 class IndexCommandService(
-    private val indexRepository: IndexRepository
+    private val indexEntityRepository: IndexEntityRepository
 ) {
     // to-do: only admin can execute
     fun addIndex(indexRequestData: IndexRequestData) {
@@ -19,6 +19,6 @@ class IndexCommandService(
                 secondCategory = secondCategory
             )
         }
-        indexRepository.save(newIndexEntity)
+        indexEntityRepository.save(newIndexEntity)
     }
 }

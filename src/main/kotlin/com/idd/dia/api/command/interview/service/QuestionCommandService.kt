@@ -2,14 +2,14 @@ package com.idd.dia.api.command.interview.service
 
 import com.idd.dia.api.command.interview.dto.QuestionRequestData
 import com.idd.dia.api.command.interview.entity.QuestionEntity
-import com.idd.dia.api.command.interview.repository.QuestionRepository
+import com.idd.dia.api.command.interview.repository.QuestionEntityRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = false)
 class QuestionCommandService(
-    private val questionRepository: QuestionRepository
+    private val questionEntityRepository: QuestionEntityRepository
 ) {
     // to-do: only admin can execute
     fun addQuestion(questionRequestData: QuestionRequestData) {
@@ -19,6 +19,6 @@ class QuestionCommandService(
                 question = question,
             )
         }
-        questionRepository.save(newQuestionEntity)
+        questionEntityRepository.save(newQuestionEntity)
     }
 }
