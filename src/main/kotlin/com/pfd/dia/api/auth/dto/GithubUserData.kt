@@ -1,15 +1,16 @@
 package com.pfd.dia.api.auth.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.pfd.dia.api.auth.constant.AuthJsonObject
 
 data class GithubUserData(
     val login: String,
     val id: Long,
-    @JsonProperty("node_id")
+    @JsonProperty(AuthJsonObject.nodeId)
     val nodeId: String,
-    @JsonProperty("avatar_url")
+    @JsonProperty(AuthJsonObject.avatarUrl)
     val avatarUrl: String,
-    @JsonProperty("html_url")
+    @JsonProperty(AuthJsonObject.htmlUrl)
     val htmlUrl: String,
     val company: String?,
 )

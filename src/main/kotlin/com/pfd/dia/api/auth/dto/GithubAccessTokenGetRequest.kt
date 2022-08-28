@@ -1,11 +1,12 @@
 package com.pfd.dia.api.auth.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.pfd.dia.api.auth.constant.AuthJsonObject
 
 data class GithubAccessTokenGetRequest(
     val code: String,
-    @JsonProperty("client_id")
+    @JsonProperty(AuthJsonObject.clientId)
     val clientId: String,
-    @JsonProperty("client_secret")
+    @JsonProperty(AuthJsonObject.clientSecret)
     val clientSecret: String,
 )
