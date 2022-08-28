@@ -1,24 +1,21 @@
-package com.pfd.dia.api.command.user
+package com.pfd.dia.api.auth
 
 import com.pfd.dia.api.command.BaseEntity
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "tb_user_token")
+@Table(name = "tb_auth_token")
 @DynamicInsert
 @DynamicUpdate
-class UserTokenEntity(
-    userEntity: UserEntity,
+class AuthTokenEntity(
+    userId: Long,
     accessToken: String,
     refreshToken: String,
 ): BaseEntity() {
@@ -27,9 +24,8 @@ class UserTokenEntity(
     @Column(name = "id")
     var id: Long = 0
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "tb_user_id", nullable = false)
-    var user: UserEntity = userEntity
+    @Column(name = "user_id")
+    var userId: Long = userId
         protected set
 
     @Column(name = "access_token")
