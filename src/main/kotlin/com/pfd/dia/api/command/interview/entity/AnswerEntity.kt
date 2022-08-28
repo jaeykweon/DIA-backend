@@ -24,7 +24,7 @@ class AnswerEntity(
     @Column(name = "id")
     var id: Long = 0
 
-    @Column(name = "questio_id", nullable = false)
+    @Column(name = "question_id", nullable = false)
     var questionId: Long = questionId
         protected set
 
