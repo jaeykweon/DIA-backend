@@ -28,11 +28,11 @@ class AuthTokenEntity(
     var userId: Long = userId
         protected set
 
-    @Column(name = "access_token")
+    @Column(columnDefinition ="TEXT", name = "access_token")
     var accessToken: String = accessToken
         protected set
 
-    @Column(name = "refresh_token")
+    @Column(columnDefinition ="TEXT", name = "refresh_token")
     var refreshToken: String = refreshToken
         protected set
 

@@ -10,6 +10,7 @@ import com.pfd.dia.api.command.user.UserCommandService
 import com.pfd.dia.api.command.user.UserReaderService
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
@@ -35,7 +36,6 @@ class AuthService(
             clientId = authProperty.GITHUB_CLIENT_ID,
             clientSecret = authProperty.GITHUB_CLIENT_SECRET
         )
-
         val githubAccessTokenResponse : ResponseEntity<GithubAccessTokenGetResponse> =
             restTemplate.postForEntity(
                 authProperty.GITHUB_ACCESS_TOKEN_URL,
@@ -44,18 +44,11 @@ class AuthService(
             )
 
         header.set("Authorization", "Bearer "+ githubAccessTokenResponse.body!!.accessToken);
-//                val githubUserDataResponse2 = restTemplate.exchange(
-//                    authProperty.GITHUB_USER_DATA_URL,
-//                    HttpMethod.GET,
-//                    HttpEntity<Map<String, Any>>(header),
-//                    GithubUserData::class.java
-//                )
-        val githubUserDataResponse = restTemplate.getForEntity(
+        val githubUserDataResponse = restTemplate.exchange(
             authProperty.GITHUB_USER_DATA_URL,
-//            HttpEntity<Map<String, Any>>(header).javaClass,
-//            Map::class.java,
-            GithubUserData::class.java,
-            header
+            HttpMethod.GET,
+            HttpEntity<Map<String, Any>>(header),
+            GithubUserData::class.java
         )
         val githubUserData = githubUserDataResponse.body!!
         val githubId = githubUserData.login
