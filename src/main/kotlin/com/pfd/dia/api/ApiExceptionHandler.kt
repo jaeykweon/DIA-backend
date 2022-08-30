@@ -11,16 +11,45 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ApiExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException::class)
-    fun handleForbiddenException(e: IllegalArgumentException): ResponseEntity<ApiResponse<Nothing>> {
+    fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<ApiResponse<Nothing>> {
+        logging(e)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ApiResponse.error(e.message))
+    }
+
+    @ExceptionHandler(IllegalStateException::class)
+    fun handleIllegalStateException(e: IllegalStateException): ResponseEntity<ApiResponse<Nothing>> {
+        logging(e)
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+            .body(ApiResponse.error(e.message))
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValid(e: MethodArgumentNotValidException): ResponseEntity<ApiResponse<Nothing>> {
+        logging(e)
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+            .body(ApiResponse.error(e.message))
+    }
+
+    @ExceptionHandler(DiaNotFoundException::class)
+    fun handleNotFoundException(e: DiaNotFoundException): ResponseEntity<ApiResponse<Nothing>> {
+        logging(e)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ApiResponse.error(e.message))
+    }
+
+    @ExceptionHandler(DiaUnauthenticatedException::class)
+    fun handleUnauthenticatedException(e: DiaUnauthenticatedException): ResponseEntity<ApiResponse<Nothing>> {
         logging(e)
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
             .body(ApiResponse.error(e.message))
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleMethodArgumentNotValid(e: MethodArgumentNotValidException): ApiResponse<Nothing> {
+    @ExceptionHandler(DiaUnauthorizedException::class)
+    fun handleForbiddenException(e: DiaUnauthorizedException): ResponseEntity<ApiResponse<Nothing>> {
         logging(e)
-        return ApiResponse.error(e.fieldErrors.joinToString { "${it.field} : ${it.defaultMessage}" })
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body(ApiResponse.error(e.message))
     }
 
     @ExceptionHandler(Exception::class)

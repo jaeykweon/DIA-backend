@@ -1,5 +1,6 @@
 package com.pfd.dia.api.command.interview.service
 
+import com.pfd.dia.api.DiaNotFoundException
 import com.pfd.dia.api.command.interview.repository.AnswerEntityRepository
 import com.pfd.dia.global.error.InterviewDomainError.ANSWER_ID_NOT_FOUND
 import org.springframework.data.repository.findByIdOrNull
@@ -12,5 +13,5 @@ class AnswerRepositoryService(
     private val answerEntityRepository: AnswerEntityRepository
 ) {
     fun findById(id: Long) = answerEntityRepository.findByIdOrNull(id)
-        ?: throw IllegalArgumentException(ANSWER_ID_NOT_FOUND.message)
+        ?: throw DiaNotFoundException(ANSWER_ID_NOT_FOUND.message)
 }

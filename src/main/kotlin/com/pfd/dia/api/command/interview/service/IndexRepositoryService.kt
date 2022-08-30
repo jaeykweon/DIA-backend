@@ -1,5 +1,6 @@
 package com.pfd.dia.api.command.interview.service
 
+import com.pfd.dia.api.DiaNotFoundException
 import com.pfd.dia.global.error.InterviewDomainError.INDEX_ID_NOT_FOUND
 import com.pfd.dia.api.command.interview.entity.IndexEntity
 import com.pfd.dia.api.command.interview.repository.IndexEntityRepository
@@ -13,7 +14,7 @@ class IndexRepositoryService(
     private val indexEntityRepository: IndexEntityRepository
 ) {
     fun findById(id: Long) = indexEntityRepository.findByIdOrNull(id)
-        ?: throw NoSuchElementException(INDEX_ID_NOT_FOUND.message)
+        ?: throw DiaNotFoundException(INDEX_ID_NOT_FOUND.message)
 
     fun findAll(): List<IndexEntity> = indexEntityRepository.findAll()
 }
