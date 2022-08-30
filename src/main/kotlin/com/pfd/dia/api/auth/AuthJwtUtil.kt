@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.pfd.dia.api.auth.constant.AuthProperty
 import com.pfd.dia.api.auth.constant.TokenType
+import com.pfd.dia.api.auth.constant.TokenType.ACCESS_TOKEN
+import com.pfd.dia.api.auth.constant.TokenType.REFRESH_TOKEN
 import org.springframework.stereotype.Component
 import java.util.Date
 
@@ -36,10 +38,22 @@ class AuthJwtUtil(
         .withSubject(authProperty.JWT_SUBJECT)
         .withIssuedAt(Date())
 
+    fun verify(token: String, type: TokenType): DecodedJWT {
+        val algorithm = when (type) {
+            ACCESS_TOKEN -> accessAlgorithm
+            REFRESH_TOKEN -> refreshAlgorithm
+        }
+        return JWT.require(algorithm)
+            .withIssuer(authProperty.JWT_ISSUER)
+            .withSubject(authProperty.JWT_SUBJECT)
+            .build()
+            .verify(token)
+    }
+
     fun decode(token: String, type: TokenType): DecodedJWT {
         val algorithm = when (type) {
-            TokenType.ACCESS_TOKEN -> accessAlgorithm
-            TokenType.REFRESH_TOKEN -> refreshAlgorithm
+            ACCESS_TOKEN -> accessAlgorithm
+            REFRESH_TOKEN -> refreshAlgorithm
         }
         return JWT.require(algorithm)
             .withIssuer(authProperty.JWT_ISSUER)

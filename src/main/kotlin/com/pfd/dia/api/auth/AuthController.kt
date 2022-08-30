@@ -29,7 +29,6 @@ class AuthController(
     ): ResponseEntity<ApiResponse<LogInResponse>> {
 
         val logInResponse = authService.logInWithGithub(code)
-        // to-do : github access token 으로 jwt 생성하여 반환 
         return ResponseEntity.status(HttpStatus.OK).body(
             ApiResponse.success(
                 data = logInResponse,
