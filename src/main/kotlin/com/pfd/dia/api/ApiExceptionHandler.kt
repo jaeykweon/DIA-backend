@@ -1,8 +1,10 @@
 package com.pfd.dia.api
 
+import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -50,6 +52,13 @@ class ApiExceptionHandler {
         logging(e)
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
             .body(ApiResponse.error(e.message))
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<ApiResponse<Nothing>> {
+        logging(e)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ApiResponse.error("요청에 필요한 정보가 부족합니다(HttpMessageNotReadableException)"))
     }
 
     @ExceptionHandler(Exception::class)
