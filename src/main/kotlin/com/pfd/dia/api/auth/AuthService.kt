@@ -1,13 +1,15 @@
 package com.pfd.dia.api.auth
 
+import com.pfd.dia.api.DiaAuthenticateFailException
 import com.pfd.dia.api.auth.constant.AuthJsonObject
 import com.pfd.dia.api.auth.constant.AuthProperty
 import com.pfd.dia.api.auth.dto.GithubAccessTokenGetRequest
 import com.pfd.dia.api.auth.dto.GithubAccessTokenGetResponse
 import com.pfd.dia.api.auth.dto.GithubUserData
-import com.pfd.dia.api.auth.dto.LogInResponse
+import com.pfd.dia.api.auth.dto.AuthTokenResponse
 import com.pfd.dia.api.command.user.UserCommandService
 import com.pfd.dia.api.command.user.UserReaderService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -27,7 +29,7 @@ class AuthService(
     private val userReaderService: UserReaderService,
     private val userCommandService: UserCommandService,
 ) {
-    fun logInWithGithub(code:String): LogInResponse {
+    fun logInWithGithub(code:String): AuthTokenResponse {
 
         val restTemplate = createRestTemplate()
         val header = createHeader()
@@ -67,7 +69,8 @@ class AuthService(
         val newAuthTokenEntity = AuthTokenEntity(userId= userId, accessToken = accessToken, refreshToken = refreshToken)
         val savedTokenEntity = authTokenRepository.save(newAuthTokenEntity)
 
-        return LogInResponse(
+        return AuthTokenResponse(
+            tokenId = savedTokenEntity.id,
             accessToken = savedTokenEntity.accessToken,
             refreshToken = savedTokenEntity.refreshToken
         )

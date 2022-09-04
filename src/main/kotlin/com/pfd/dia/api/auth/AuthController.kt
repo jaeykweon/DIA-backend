@@ -2,7 +2,7 @@ package com.pfd.dia.api.auth
 
 import com.pfd.dia.api.ApiResponse
 import com.pfd.dia.api.auth.constant.AuthJsonObject
-import com.pfd.dia.api.auth.dto.LogInResponse
+import com.pfd.dia.api.auth.dto.AuthTokenResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -26,8 +26,7 @@ class AuthController(
     fun githubOauthCallBackTest(
         @RequestParam @NotEmpty(message = "인증 코드가 비어있습니다.") code: String,
         @RequestParam(AuthJsonObject.previousUrl) previousUrl: String?
-    ): ResponseEntity<ApiResponse<LogInResponse>> {
-
+    ): ResponseEntity<ApiResponse<AuthTokenResponse>> {
         val logInResponse = authService.logInWithGithub(code)
         return ResponseEntity.status(HttpStatus.OK).body(
             ApiResponse.success(

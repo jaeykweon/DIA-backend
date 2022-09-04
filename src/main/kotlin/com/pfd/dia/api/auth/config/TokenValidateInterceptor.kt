@@ -32,7 +32,7 @@ class TokenValidateInterceptor(
         val requestMethod = request.method
         val requestServletPath = request.servletPath
         val authHeader: String? = request.getHeader(AUTHORIZATION)
-        val authId: Long? = request.getHeader(AUTH_ID)?.toLong()
+        val tokenId: Long? = request.getHeader(TOKEN_ID)?.toLong()
 
         if (authHeader.isNullOrBlank()) {
             val pair = requestMethod to requestServletPath
@@ -44,18 +44,18 @@ class TokenValidateInterceptor(
             return true
         }
 
-        return handleToken(authId, extractToken(authHeader), response)
+        return handleToken(tokenId, extractToken(authHeader), response)
     }
 
 
     private fun handleToken(
-        authId: Long?,
+        tokenId: Long?,
         token: String,
         response: HttpServletResponse
     ) = try {
-        check(authId.isNotNull()) { throw DiaAuthenticateFailException("토큰 id가 없습니다.") }
+        check(tokenId.isNotNull()) { throw DiaAuthenticateFailException("토큰 id가 없습니다.") }
 
-        val tokenInServer = authTokenRepository.findByIdOrNull(authId)?.accessToken
+        val tokenInServer = authTokenRepository.findByIdOrNull(tokenId)?.accessToken
             ?: throw DiaAuthenticateFailException("서버에 없는 토큰입니다.")
         check(token == tokenInServer) { throw DiaAuthenticateFailException("서버 토큰 정보와 다릅니다.") }
 
@@ -89,7 +89,7 @@ class TokenValidateInterceptor(
 
     companion object {
         private const val AUTHORIZATION = "Authorization"
-        private const val AUTH_ID = "Auth-Id"
+        private const val TOKEN_ID = "Token-Id"
         private const val BEARER = "Bearer"
 
         private val DEFAULT_ALLOWED_API_URLS = listOf(

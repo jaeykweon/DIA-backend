@@ -10,4 +10,5 @@ object AuthJsonObject {
     const val nodeId: String = "node_id"
     const val previousUrl: String = "previous_url"
     const val refreshToken: String = "refresh_token"
+    const val tokenId: String = "token_id"
 }
