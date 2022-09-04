@@ -30,7 +30,12 @@ class ApiExceptionHandler {
     fun handleMethodArgumentNotValid(e: MethodArgumentNotValidException): ResponseEntity<ApiResponse<Nothing>> {
         logging(e)
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
-            .body(ApiResponse.error(e.message))
+            .body(ApiResponse.error(
+                "error fields: " +
+                e.bindingResult.fieldErrors.mapIndexed {
+                    idx, value -> "${idx+1}. ${value.field} "
+                }.joinToString(",")
+            ))
     }
 
     @ExceptionHandler(DiaNotFoundException::class)
