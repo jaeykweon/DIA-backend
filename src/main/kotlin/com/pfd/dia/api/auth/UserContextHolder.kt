@@ -16,6 +16,7 @@ class UserContextHolder(
     fun set(jwt: DecodedJWT) {
         this.userHolder.get().apply {
             this.id = authJwtUtil.extractUserId(jwt)
+            this.oauthId = authJwtUtil.extractOauthId(jwt)
         }
     }
 
@@ -23,7 +24,6 @@ class UserContextHolder(
 
     private class UserHolder {
         var id: Long? = null
-        var email: String? = null
-        var nickname: String? = null
+        var oauthId: String? = null
     }
 }
