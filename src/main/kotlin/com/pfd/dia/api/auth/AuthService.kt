@@ -92,4 +92,31 @@ class AuthService(
             this.accept = accept
         }
 
+    fun refreshingToken(
+        tokenId: Long,
+        userId: Long,
+        oauthId: String,
+        profileImageUrl: String,
+        refreshToken: String
+    ): AuthTokenResponse {
+        authTokenRepository.findByIdOrNull(tokenId)!!
+            .apply {
+                check(this.refreshToken == refreshToken) {
+                    throw DiaAuthenticateFailException("서버에 없는 refresh 토큰입니다.")
+                }
+            }
+        val newTokenEntity = AuthTokenEntity(
+            userId = userId,
+            accessToken = authJwtUtil.generateAccessToken(userId, oauthId, profileImageUrl),
+            refreshToken = authJwtUtil.generateRefreshToken(userId, oauthId)
+        )
+
+        val savedTokenEntity = authTokenRepository.save(newTokenEntity)
+        authTokenRepository.deleteById(tokenId)
+
+        return with(savedTokenEntity) {
+            return@with AuthTokenResponse(tokenId = id, accessToken = accessToken, refreshToken = refreshToken)
+        }
+    }
+
 }
