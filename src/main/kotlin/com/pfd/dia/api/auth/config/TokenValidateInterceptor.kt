@@ -1,7 +1,7 @@
 package com.pfd.dia.api.auth.config
 
 import com.auth0.jwt.exceptions.TokenExpiredException
-import com.pfd.dia.api.DiaUnauthenticatedException
+import com.pfd.dia.api.DiaAuthenticateFailException
 import com.pfd.dia.api.auth.AuthJwtUtil
 import com.pfd.dia.api.auth.AuthTokenRepository
 import com.pfd.dia.api.auth.UserContextHolder
@@ -53,11 +53,11 @@ class TokenValidateInterceptor(
         token: String,
         response: HttpServletResponse
     ) = try {
-        check(authId.isNotNull()) { throw DiaUnauthenticatedException("토큰 id가 없습니다.") }
+        check(authId.isNotNull()) { throw DiaAuthenticateFailException("토큰 id가 없습니다.") }
 
         val tokenInServer = authTokenRepository.findByIdOrNull(authId)?.accessToken
-            ?: throw DiaUnauthenticatedException("서버에 없는 토큰입니다.")
-        check(token == tokenInServer) { throw DiaUnauthenticatedException("서버 토큰 정보와 다릅니다.") }
+            ?: throw DiaAuthenticateFailException("서버에 없는 토큰입니다.")
+        check(token == tokenInServer) { throw DiaAuthenticateFailException("서버 토큰 정보와 다릅니다.") }
 
         val jwt = jwtUtil.verify(token, ACCESS_TOKEN)
         userContextHolder.set(jwt)
@@ -74,7 +74,7 @@ class TokenValidateInterceptor(
 
     private fun extractToken(token: String): String {
         val (front, back) = token.split(" ")
-        if(front != BEARER) { throw DiaUnauthenticatedException("토큰 형식이 올바르지 않습니다.") }
+        if(front != BEARER) { throw DiaAuthenticateFailException("토큰 형식이 올바르지 않습니다.") }
         return back.trim()
     }
 

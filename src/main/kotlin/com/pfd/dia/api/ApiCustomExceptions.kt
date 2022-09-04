@@ -2,9 +2,9 @@ package com.pfd.dia.api
 
 import org.springframework.http.HttpStatus.Series
 
-class DiaUnauthenticatedException(message: String): RuntimeException(message)
+class DiaAuthenticateFailException(message: String): RuntimeException(message)
 
-class DiaUnauthorizedException(message: String): RuntimeException(message)
+class DiaAuthorizeFailException(message: String): RuntimeException(message)
 
 class DiaNotFoundException(message: String): RuntimeException(message)
 

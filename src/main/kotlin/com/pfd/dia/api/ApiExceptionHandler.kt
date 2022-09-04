@@ -38,15 +38,15 @@ class ApiExceptionHandler {
             .body(ApiResponse.error(e.message))
     }
 
-    @ExceptionHandler(DiaUnauthenticatedException::class)
-    fun handleUnauthenticatedException(e: DiaUnauthenticatedException): ResponseEntity<ApiResponse<Nothing>> {
+    @ExceptionHandler(DiaAuthenticateFailException::class)
+    fun handleUnauthenticatedException(e: DiaAuthenticateFailException): ResponseEntity<ApiResponse<Nothing>> {
         logging(e)
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
             .body(ApiResponse.error(e.message))
     }
 
-    @ExceptionHandler(DiaUnauthorizedException::class)
-    fun handleForbiddenException(e: DiaUnauthorizedException): ResponseEntity<ApiResponse<Nothing>> {
+    @ExceptionHandler(DiaAuthorizeFailException::class)
+    fun handleForbiddenException(e: DiaAuthorizeFailException): ResponseEntity<ApiResponse<Nothing>> {
         logging(e)
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
             .body(ApiResponse.error(e.message))

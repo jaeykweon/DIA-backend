@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.TokenExpiredException
 import com.auth0.jwt.interfaces.DecodedJWT
-import com.pfd.dia.api.DiaUnauthorizedException
+import com.pfd.dia.api.DiaAuthenticateFailException
 import com.pfd.dia.api.auth.constant.AuthProperty
 import com.pfd.dia.api.auth.constant.TokenType
 import com.pfd.dia.api.auth.constant.TokenType.ACCESS_TOKEN
@@ -58,10 +58,12 @@ class AuthJwtUtil(
     }
 
     fun extractUserId(jwt: DecodedJWT): Long =
-        jwt.getClaim(JwtClaims.USER_ID)?.asLong() ?: throw DiaUnauthorizedException("올바르지 않은 토큰 user_id 입니다.")
+        jwt.getClaim(JwtClaims.USER_ID)?.asLong()
+            ?: throw DiaAuthenticateFailException("올바르지 않은 토큰 user_id 입니다.")
 
     fun extractOauthId(jwt: DecodedJWT): String =
-        jwt.getClaim(JwtClaims.OAUTH_ID)?.asString() ?: throw DiaUnauthorizedException("올바르지 않은 토큰 oauth_id 입니다.")
+        jwt.getClaim(JwtClaims.OAUTH_ID)?.asString()
+            ?: throw DiaAuthenticateFailException("올바르지 않은 토큰 oauth_id 입니다.")
 
     private object JwtClaims {
         const val USER_ID = "user_id"
