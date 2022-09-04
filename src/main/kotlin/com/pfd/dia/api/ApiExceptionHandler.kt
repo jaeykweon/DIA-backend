@@ -52,14 +52,6 @@ class ApiExceptionHandler {
             .body(ApiResponse.error(e.message))
     }
 
-    @ExceptionHandler(DiaTokenExpiredException::class)
-    fun handleTokenExpiredException(e: DiaTokenExpiredException): ResponseEntity<ApiResponse<Nothing>> {
-        logging(e)
-        return ResponseEntity.status(CustomHttpStatus.TOO_LATE.status)
-            .body(ApiResponse.error(e.message))
-    }
-
-
     @ExceptionHandler(Exception::class)
     fun handleUntitledException(e: Exception): ApiResponse<Nothing> {
         logging(e)
