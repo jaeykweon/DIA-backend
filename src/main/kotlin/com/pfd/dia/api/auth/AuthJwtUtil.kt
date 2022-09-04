@@ -65,6 +65,10 @@ class AuthJwtUtil(
         jwt.getClaim(JwtClaims.OAUTH_ID)?.asString()
             ?: throw DiaAuthenticateFailException("올바르지 않은 토큰 oauth_id 입니다.")
 
+    fun extractProfileImageUrl(jwt: DecodedJWT): String =
+        jwt.getClaim(JwtClaims.PROFILE_IMAGE_URL)?.asString()
+            ?: throw DiaAuthenticateFailException("올바르지 않은 profile image url 입니다.")
+
     private object JwtClaims {
         const val USER_ID = "user_id"
         const val OAUTH_ID = "oauth_id"
