@@ -15,7 +15,7 @@ class QuestionCommandService(
     fun addQuestion(questionRequestData: QuestionRequestData) {
         val newQuestionEntity = with(questionRequestData) {
             QuestionEntity(
-                indexId = indexId,
+                categoryId = categoryId,
                 question = question,
             )
         }

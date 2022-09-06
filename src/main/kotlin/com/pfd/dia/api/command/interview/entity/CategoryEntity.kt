@@ -11,10 +11,10 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "tb_index")
+@Table(name = "tb_category")
 @DynamicInsert
 @DynamicUpdate
-class IndexEntity(
+class CategoryEntity(
     firstCategory: String,
     secondCategory: String
 ): BaseEntity() {

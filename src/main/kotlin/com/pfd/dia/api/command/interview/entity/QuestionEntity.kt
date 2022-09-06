@@ -15,7 +15,7 @@ import javax.persistence.Table
 @DynamicInsert
 @DynamicUpdate
 class QuestionEntity(
-    indexId: Long,
+    categoryId: Long,
     question: String,
 ): BaseEntity() {
 
@@ -24,8 +24,8 @@ class QuestionEntity(
     @Column(name = "id")
     var id: Long = 0
 
-    @Column(name = "index_id", nullable = false)
-    var indexId: Long = indexId
+    @Column(name = "category_id", nullable = false)
+    var categoryId: Long = categoryId
         protected set
 
     @Column(name = "question", nullable = false)

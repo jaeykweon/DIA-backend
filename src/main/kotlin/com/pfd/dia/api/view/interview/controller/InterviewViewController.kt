@@ -1,9 +1,9 @@
 package com.pfd.dia.api.view.interview.controller
 
 import com.pfd.dia.api.ApiResponse
-import com.pfd.dia.api.view.interview.dto.IndexView
+import com.pfd.dia.api.view.interview.dto.CategoryView
 import com.pfd.dia.api.view.interview.dto.QuestionView
-import com.pfd.dia.api.view.interview.service.IndexViewService
+import com.pfd.dia.api.view.interview.service.CategoryViewService
 import com.pfd.dia.api.view.interview.service.QuestionViewService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/interviews")
 class InterviewViewController(
-    private val indexViewService: IndexViewService,
+    private val categoryViewService: CategoryViewService,
     private val questionViewService: QuestionViewService,
 ) {
 
-    @GetMapping("/indexes")
-    fun getIndexList(): ApiResponse<List<IndexView>> {
-        val indexList = indexViewService.getIndexList()
-        return ApiResponse.success(indexList)
+    @GetMapping("/categories")
+    fun getCategoryList(): ApiResponse<List<CategoryView>> {
+        val categoryViewList = categoryViewService.getCategoryList()
+        return ApiResponse.success(categoryViewList)
     }
 
     @GetMapping("/questions/{questionId}")

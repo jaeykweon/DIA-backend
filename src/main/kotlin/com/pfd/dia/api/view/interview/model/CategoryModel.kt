@@ -11,8 +11,8 @@ import javax.persistence.Table
 
 @Entity
 @Immutable
-@Table(name = "view_index")
-class IndexModel(
+@Table(name = "view_category")
+class CategoryModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,6 +23,5 @@ class IndexModel(
 
     @Column(name = "second_category", nullable = false)
     val secondCategory: String,
-
 
 ): BaseModel()
