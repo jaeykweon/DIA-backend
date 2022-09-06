@@ -28,7 +28,7 @@ class AnswerEntity(
     var questionId: Long = questionId
         protected set
 
-    @Column(name = "model_answer", nullable = false)
+    @Column(name = "answer", nullable = false)
     var answer: String = answer
         protected set
 }
