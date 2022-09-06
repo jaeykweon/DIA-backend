@@ -114,9 +114,11 @@ class AuthService(
         val savedTokenEntity = authTokenRepository.save(newTokenEntity)
         authTokenRepository.deleteById(tokenId)
 
-        return with(savedTokenEntity) {
-            return@with AuthTokenResponse(tokenId = id, accessToken = accessToken, refreshToken = refreshToken)
-        }
+        return AuthTokenResponse(
+            tokenId = savedTokenEntity.id,
+            accessToken = savedTokenEntity.accessToken,
+            refreshToken = savedTokenEntity.refreshToken
+        )
     }
 
 }
